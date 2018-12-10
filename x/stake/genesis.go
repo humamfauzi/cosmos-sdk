@@ -33,7 +33,7 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data types.GenesisState) (res [
 		// Manually set indices for the first time
 		keeper.SetValidatorByConsAddr(ctx, validator)
 		keeper.SetValidatorByPowerIndex(ctx, validator)
-		keeper.OnValidatorCreated(ctx, validator.OperatorAddr)
+		keeper.PostValidatorCreated(ctx, validator.OperatorAddr)
 
 		// Set timeslice if necessary
 		if validator.Status == sdk.Unbonding {
@@ -43,7 +43,7 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data types.GenesisState) (res [
 
 	for _, delegation := range data.Bonds {
 		keeper.SetDelegation(ctx, delegation)
-		keeper.OnDelegationCreated(ctx, delegation.DelegatorAddr, delegation.ValidatorAddr)
+		keeper.PostDelegationCreated(ctx, delegation.DelegatorAddr, delegation.ValidatorAddr)
 	}
 
 	sort.SliceStable(data.UnbondingDelegations[:], func(i, j int) bool {

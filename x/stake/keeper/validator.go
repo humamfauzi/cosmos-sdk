@@ -204,7 +204,7 @@ func (k Keeper) RemoveValidator(ctx sdk.Context, address sdk.ValAddress) {
 
 	// call hook if present
 	if k.hooks != nil {
-		k.hooks.OnValidatorRemoved(ctx, validator.ConsAddress(), validator.OperatorAddr)
+		k.hooks.PostValidatorRemoved(ctx, validator.ConsAddress(), validator.OperatorAddr)
 	}
 
 }
